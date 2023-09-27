@@ -1,0 +1,234 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/28/2023 9:19:16 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-4G1T9AR"
+  DTS:CreatorName="DESKTOP-4G1T9AR\Lucas"
+  DTS:DTSID="{D9F97A38-4144-4E80-9A8B-05131DA4F17B}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5228.0"
+  DTS:LocaleID="1046"
+  DTS:ObjectName="7 - SQL TASK in SSIS"
+  DTS:PackageType="5"
+  DTS:VersionBuild="15"
+  DTS:VersionGUID="{E7A36DC8-20E2-46C1-BC7B-78FEB48C293A}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-4G1T9AR.SSIS]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{C7C3DF04-FE26-4A03-83FB-37597799DE19}"
+      DTS:ObjectName="DESKTOP-4G1T9AR.SSIS">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-4G1T9AR;Initial Catalog=SSIS;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-7 - SQL TASK in SSIS-{C7C3DF04-FE26-4A03-83FB-37597799DE19}DESKTOP-4G1T9AR.SSIS;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[INSERTINHO.sql]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{4A136E0C-2EED-42E6-9AFB-1AD47AFB961E}"
+      DTS:ObjectName="INSERTINHO.sql">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="C:\Users\Lucas\Desktop\CURSO SSIS\AULA 15 - Querys no SSIS\INSERTINHO.sql" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{4336D93E-CADC-4F1C-9590-26583DE85F31}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="Age">
+      <DTS:VariableValue
+        DTS:DataType="3">21</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{4670B1B6-2BA0-488D-A23A-B352E6A4FA42}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Gender">
+      <DTS:VariableValue
+        DTS:DataType="8">F</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{90EE4B02-6BC5-4D35-8408-DE3FF0346346}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Name">
+      <DTS:VariableValue
+        DTS:DataType="8">Beatriz</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{3162427D-CBDD-44DC-AEEC-1ED6C68CCE6D}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;if not exists(select * from information_schema.tables where table_name = 'SQLTASK')&#xA;create table SQLTASK(Id int identity, Name varchar(50), Gender varchar(1), AGE int)&#xA;insert into SQLTASK values ('&quot;+ @[User::Name] +&quot;','&quot;+ @[User::Gender] +&quot;','&quot;+(DT_WSTR,12) @[User::Age] +&quot;')&#xA;&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Query">
+      <DTS:VariableValue
+        DTS:DataType="8">if not exists(select * from information_schema.tables where table_name = 'SQLTASK')
+create table SQLTASK(Id int identity, Name varchar(50), Gender varchar(1), AGE int)
+insert into SQLTASK values ('Beatriz','F','21')
+</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Sql Query Arquivo"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{aea445bd-02f3-4ae6-874e-411130edcced}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Sql Query Arquivo"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="2">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{C7C3DF04-FE26-4A03-83FB-37597799DE19}"
+          SQLTask:SqlStmtSourceType="FileConnection"
+          SQLTask:SqlStatementSource="INSERTINHO.sql" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL Query Expressão (Interno)"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{516c0b7e-b423-4b2e-8b80-0665bf2b06c7}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL Query Expressão (Interno)"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="4">
+      <DTS:Variables />
+      <DTS:PropertyExpression
+        DTS:Name="SqlStatementSource">"if not exists(select * from information_schema.tables where table_name = 'SQLTASK')
+create table SQLTASK(Id int identity, Name varchar(50), Gender varchar(1), AGE int)
+insert into SQLTASK values ('"+ @[User::Name] +"','"+ @[User::Gender] +"','"+(DT_WSTR,12) @[User::Age] +"')
+"</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{C7C3DF04-FE26-4A03-83FB-37597799DE19}"
+          SQLTask:SqlStatementSource="if not exists(select * from information_schema.tables where table_name = 'SQLTASK')&#xA;create table SQLTASK(Id int identity, Name varchar(50), Gender varchar(1), AGE int)&#xA;insert into SQLTASK values ('Beatriz','F','21')&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Sql Query Expressão (na Variavel)"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{a8837776-b639-4545-83c8-c6429e4b7e27}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Sql Query Expressão (na Variavel)"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{C7C3DF04-FE26-4A03-83FB-37597799DE19}"
+          SQLTask:SqlStmtSourceType="Variable"
+          SQLTask:SqlStatementSource="User::Query" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL Query Manual"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{6B251BDC-CB95-43E6-A693-6473367A0DA7}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL Query Manual"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{C7C3DF04-FE26-4A03-83FB-37597799DE19}"
+          SQLTask:SqlStatementSource="if not exists(select * from information_schema.tables where table_name = 'SQLTASK')&#xA;create table SQLTASK(Id int identity, Name varchar(50), Gender varchar(1), AGE int)&#xA;go&#xA;insert into SQLTASK values ('ABHISHEK','M', 35)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL Query Variavel"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{e5b25f21-5020-4443-a105-b1ae2799af83}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL Query Variavel"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="3">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{C7C3DF04-FE26-4A03-83FB-37597799DE19}"
+          SQLTask:SqlStatementSource="if not exists(select * from information_schema.tables where table_name = 'SQLTASK')&#xA;create table SQLTASK(Id int identity, Name varchar(50), Gender varchar(1), AGE int)&#xA;insert into SQLTASK values (?,?,?)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::Name"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::Gender"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::Age"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="173,42"
+          Id="Package\SQL Query Manual"
+          TopLeft="16,386" />
+        <NodeLayout
+          Size="177,42"
+          Id="Package\SQL Query Variavel"
+          TopLeft="132,319" />
+        <NodeLayout
+          Size="233,42"
+          Id="Package\SQL Query Expressão (Interno)"
+          TopLeft="219,255" />
+        <NodeLayout
+          Size="248,42"
+          Id="Package\Sql Query Expressão (na Variavel)"
+          TopLeft="345,201" />
+        <NodeLayout
+          Size="168,42"
+          Id="Package\Sql Query Arquivo"
+          TopLeft="499,136" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
